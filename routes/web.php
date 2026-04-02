@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $semua_destinasi = \App\Models\Destination::all(); // Mengambil data untuk halaman depan
+    return view('welcome', compact('semua_destinasi'));
 });
 
 Route::get('/dashboard', function () {

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,9 +8,19 @@ Route::get('/', function () {
     return view('welcome', compact('semua_destinasi'));
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// route crud
+Route::resource('destinations', DestinationController::class);
+Route::resource('plans', PlanController::class)->only(['store','update','destroy']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', fn() => view('welcome'))->name('welcome');
+
+
+Route::get('/dashboard', [DestinationController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::resource('/destinations', DestinationController::class)
+    ->middleware(['auth']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

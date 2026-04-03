@@ -139,7 +139,7 @@
 </head>
 
 <body class="bg-forest-900 text-white overflow-x-hidden" x-data="app()" x-init="init()">
-    {{--  NAVBAR                                --}}
+    {{--  NAVBAR       --}}
     <nav
         x-data="{ scrolled: false, mobileOpen: false }"
         x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 40)"
@@ -149,21 +149,20 @@
         <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
             {{-- Logo --}}
             <a href="#" class="flex items-center">
-    <img 
+        <img 
         src="{{ asset('images/LogoCanbur.png') }}" 
         alt="CanBur Logo"
-        class="h-14 w-auto object-contain"
-    >
-</a>
+        class="h-14 w-auto object-contain">
+            </a>
 
             {{-- Desktop nav --}}
             <div class="hidden md:flex items-center gap-8 text-sm font-body text-white/60">
                 <a href="#fitur" class="hover:text-sand-400 transition-colors">Fitur</a>
                 <a href="#cara-kerja" class="hover:text-sand-400 transition-colors">Cara Kerja</a>
-                <a href="#destinasi" class="hover:text-sand-400 transition-colors">Destinasi</a>
+                <a href="#deskripsi" class="hover:text-sand-400 transition-colors">Deskripsi</a>
             </div>
 
-            {{-- CTA Buttons --}}
+            {{-- cta --}}
             <div class="hidden md:flex items-center gap-3">
                 @auth
                     <a href="{{ route('home') }}" class="px-5 py-2.5 rounded-full bg-sand-400 text-forest-900 font-body font-medium text-sm hover:bg-sand-300 transition-colors">
@@ -174,7 +173,7 @@
                         Masuk
                     </a>
                     <a href="{{ route('register') }}" class="px-5 py-2.5 rounded-full bg-sand-400 text-forest-900 font-body font-medium text-sm hover:bg-sand-300 transition-all hover:shadow-lg hover:shadow-sand-400/20 transition-all duration-300">
-                        Mulai Gratis
+                        Register
                     </a>
                 @endauth
             </div>
@@ -213,9 +212,9 @@
     </nav>
 
 
-    {{-- ═══════════════════════════════════════ --}}
-    {{--  HERO SECTION                          --}}
-    {{-- ═══════════════════════════════════════ --}}
+  
+    {{--  HERO SECTION   --}}
+
     <section class="hero-bg relative min-h-screen flex flex-col justify-center overflow-hidden pt-24">
 
         {{-- Decorative blobs --}}
@@ -351,9 +350,8 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════ --}}
-    {{--  MARQUEE TICKER                        --}}
-    {{-- ═══════════════════════════════════════ --}}
+    {{--  info berjalan    --}}
+
     <div class="bg-sand-400 py-3 overflow-hidden">
         <div class="flex animate-marquee whitespace-nowrap">
             @php
@@ -367,17 +365,20 @@
     </div>
 
 
-    {{-- ═══════════════════════════════════════ --}}
-    {{--  FITUR SECTION                         --}}
-    {{-- ═══════════════════════════════════════ --}}
+ 
+    {{--  FITUR SECTION       --}}
+
     <section id="fitur" class="py-28 px-6 relative" x-intersect="featuresVisible = true">
         <div class="max-w-7xl mx-auto">
 
             <div class="text-center mb-20 space-y-4">
                 <span class="text-sand-400 text-xs font-body tracking-widest uppercase">Fitur Utama</span>
-                <h2 class="font-display text-4xl md:text-5xl font-black">Semua yang kamu butuhkan</h2>
-                <p class="text-white/40 font-body max-w-md mx-auto">Dari destinasi hingga jadwal harian, CanBur mencakup seluruh perjalananmu.</p>
+                <h2 class="font-display text-4xl md:text-5xl font-black">Liburan Terjadwal</h2>
+                <p class="text-white/40 font-body max-w-md mx-auto">Rencanakan secara rinci destinasimu Liburan aman nyaman dan terjadwal!.</p>
+                
             </div>
+            
+            {{-- CARD FITUR --}}
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                 @php
@@ -393,7 +394,7 @@
 
                 @foreach($features as $i => $f)
                 <div
-                    x-show="featuresVisible"
+                    x-show="true"
                     x-transition:enter="transition ease-out duration-500"
                     x-transition:enter-start="opacity-0 translate-y-6"
                     x-transition:enter-end="opacity-100 translate-y-0"
@@ -413,9 +414,9 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════ --}}
-    {{--  CARA KERJA                            --}}
-    {{-- ═══════════════════════════════════════ --}}
+ 
+    {{--  CARA KERJA  --}}                          
+
     <section id="cara-kerja" class="py-28 px-6 bg-forest-800/30 relative overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(196,131,46,0.04)_0%,transparent_70%)] pointer-events-none"></div>
 
@@ -428,14 +429,14 @@
             <div class="space-y-0">
                 @php
                     $steps = [
-                        ['num' => '01', 'title' => 'Buat Akun', 'desc' => 'Daftar dengan nama, email, dan password. Proses register cepat dan mudah.', 'icon' => '👤'],
-                        ['num' => '02', 'title' => 'Tambah Destinasi', 'desc' => 'Buat destinasi liburan impianmu — lengkap dengan foto, budget, dan durasi perjalanan.', 'icon' => '📍'],
-                        ['num' => '03', 'title' => 'Susun Rencana', 'desc' => 'Isi rencana perjalanan per hari secara terperinci. Jadikan setiap momen terencana.', 'icon' => '✏️'],
+                        ['num' => '01', 'title' => 'Buat Akun', 'desc' => 'Daftar dengan nama, email, dan password. Proses register cepat dan mudah.'],
+                        ['num' => '02', 'title' => 'Tambah Destinasi', 'desc' => 'Buat destinasi liburan impianmu — lengkap dengan foto, budget, dan durasi perjalanan.'],
+                        ['num' => '03', 'title' => 'Susun Rencana', 'desc' => 'Isi rencana perjalanan per hari secara terperinci. Jadikan setiap momen terencana.'],
                     ];
                 @endphp
 
                 @foreach($steps as $i => $step)
-                <div class="flex gap-8 items-start group" x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" style="opacity:0; transform:translateY(20px); transition: all 0.7s ease {{ $i * 150 }}ms;">
+                <div class="flex gap-8 items-start group" x-intersect="$el.classList.add('opacity-100', 'translate-y-0')" style="opacity:1; transform:translateY(0);">
                     <div class="flex flex-col items-center shrink-0">
                         <div class="w-14 h-14 rounded-2xl bg-forest-700 border border-white/10 flex items-center justify-center font-display font-black text-sand-400 text-lg group-hover:border-sand-400/40 transition-colors">
                             {{ $step['num'] }}
@@ -446,7 +447,6 @@
                     </div>
                     <div class="pb-12 pt-2 space-y-2">
                         <div class="flex items-center gap-3">
-                            <span class="text-2xl">{{ $step['icon'] }}</span>
                             <h3 class="font-display text-xl font-bold">{{ $step['title'] }}</h3>
                         </div>
                         <p class="text-white/40 font-body leading-relaxed">{{ $step['desc'] }}</p>
@@ -470,78 +470,9 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════ --}}
-    {{--  DESTINASI SAMPLE                      --}}
-    {{-- ═══════════════════════════════════════ --}}
-    <section id="destinasi" class="py-28 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                <div class="space-y-3">
-                    <span class="text-sand-400 text-xs font-body tracking-widest uppercase">Contoh Destinasi</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-black">Inspirasi<br><span class="text-sand-400 italic">Liburanmu</span></h2>
-                </div>
-                <p class="text-white/40 font-body max-w-xs leading-relaxed">Dari gunung ke pantai, susun rencana perjalanan terbaikmu bersama CanBur.</p>
-            </div>
+    {{--  started  --}}
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @php
-                    $destinations = [
-                        ['emoji' => '🏔️', 'title' => 'Trip Bromo', 'location' => 'Jawa Timur', 'date' => '15 Jun 2025', 'days' => 3, 'budget' => '2.500.000', 'done' => true, 'color' => 'from-orange-900/40 to-forest-900'],
-                        ['emoji' => '🏖️', 'title' => 'Pantai Kuta', 'location' => 'Bali', 'date' => '20 Jul 2025', 'days' => 5, 'budget' => '4.000.000', 'done' => false, 'color' => 'from-blue-900/40 to-forest-900'],
-                        ['emoji' => '⛺', 'title' => 'Camping Gn. Cikuray', 'location' => 'Garut, Jawa Barat', 'date' => '10 Agu 2025', 'days' => 2, 'budget' => '800.000', 'done' => false, 'color' => 'from-green-900/40 to-forest-900'],
-                    ];
-                @endphp
-
-                @foreach($destinations as $dest)
-                <div class="dest-card rounded-3xl overflow-hidden group">
-                    {{-- Image area --}}
-                    <div class="relative h-48 bg-gradient-to-br {{ $dest['color'] }} flex items-center justify-center overflow-hidden">
-                        <span class="text-6xl group-hover:scale-110 transition-transform duration-500">{{ $dest['emoji'] }}</span>
-                        <div class="absolute top-4 right-4">
-                            @if($dest['done'])
-                                <span class="px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-body">✓ Tercapai</span>
-                            @else
-                                <span class="px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white/50 text-xs font-body">○ Belum</span>
-                            @endif
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-forest-900/80 to-transparent"></div>
-                    </div>
-
-                    {{-- Card content --}}
-                    <div class="p-5 space-y-4">
-                        <div>
-                            <h3 class="font-display text-lg font-bold">{{ $dest['title'] }}</h3>
-                            <p class="text-white/40 text-sm font-body flex items-center gap-1 mt-1">
-                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                {{ $dest['location'] }}
-                            </p>
-                        </div>
-                        <div class="grid grid-cols-3 gap-2 text-center">
-                            <div class="p-2 rounded-xl bg-white/4">
-                                <p class="text-[9px] text-white/30 font-body uppercase tracking-wide">Tanggal</p>
-                                <p class="text-xs font-body font-medium mt-1 text-white/80">{{ $dest['date'] }}</p>
-                            </div>
-                            <div class="p-2 rounded-xl bg-white/4">
-                                <p class="text-[9px] text-white/30 font-body uppercase tracking-wide">Durasi</p>
-                                <p class="text-xs font-body font-medium mt-1 text-white/80">{{ $dest['days'] }} Hari</p>
-                            </div>
-                            <div class="p-2 rounded-xl bg-sand-400/10">
-                                <p class="text-[9px] text-sand-400/50 font-body uppercase tracking-wide">Budget</p>
-                                <p class="text-xs font-body font-medium mt-1 text-sand-400">{{ number_format((int)str_replace('.', '', $dest['budget']), 0, ',', '.') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-
-    {{-- ═══════════════════════════════════════ --}}
-    {{--  CTA SECTION                           --}}
-    {{-- ═══════════════════════════════════════ --}}
-    <section class="py-28 px-6">
+    <section class="py-28 px-6" id="deskripsi">
         <div class="max-w-4xl mx-auto">
             <div class="relative rounded-3xl overflow-hidden p-12 md:p-16 text-center" style="background: linear-gradient(135deg, #1a3328 0%, #0a160f 100%); border: 1px solid rgba(196,131,46,0.2);">
                 {{-- Glow --}}
@@ -574,7 +505,7 @@
                             </svg>
                         </a>
                         <a href="{{ route('login') }}" class="text-white/50 font-body hover:text-sand-400 transition-colors">
-                            atau Masuk →
+                            atau Masuk ↑
                         </a>
                     </div>
                 @endauth
@@ -583,18 +514,25 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════ --}}
-    {{--  FOOTER                                --}}
-    {{-- ═══════════════════════════════════════ --}}
+    {{--  FOOTER        --}}
+    
+    <!-- <img 
+        src="{{ asset('images/LogoCanbur.png') }}" 
+        alt="CanBur Logo"
+        class="h-14 w-auto object-contain"
+    > -->
     <footer class="border-t border-white/5 py-10 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
-                <span class="w-7 h-7 rounded-lg bg-sand-400 flex items-center justify-center text-forest-900 font-display font-bold text-xs">C</span>
-                <span class="font-display font-bold">CanBur</span>
-                <span class="text-white/20 font-body text-sm ml-2">Rencanakan Liburanmu</span>
+                <a href="#" class="flex items-center">
+                <img 
+                src="{{ asset('images/LogoCanbur.png') }}" 
+                alt="CanBur Logo"
+                class="h-16 w-auto object-contain">
+                </a>
             </div>
             <p class="text-white/20 font-body text-sm">
-                © {{ date('Y') }} CanBur. Dibuat dengan ❤️ untuk para traveler Indonesia.
+                © {{ date('Y') }} runnri    . made with ❤️ 
             </p>
         </div>
     </footer>

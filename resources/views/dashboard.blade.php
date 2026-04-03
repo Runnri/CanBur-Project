@@ -2,7 +2,8 @@
 
 @section('title', 'Dashboard')
 @section('page-title', 'Dashboard')
-@section('page-subtitle', 'Halo, {{ Auth::user()->name }}! Siap liburan hari ini? 🌴')
+@section('page-subtitle') Halo {{ Auth::user()->name }}! Siap liburan hari ini? @endsection
+
 
 @section('header-actions')
     <a href="{{ route('destinations.create') }}"

@@ -17,50 +17,50 @@
 @section('content')
 <div class="max-w-2xl mx-auto animate-fade-in">
     <form action="{{ route('destinations.store') }}" method="POST" enctype="multipart/form-data"
-          x-data="destinationForm()" @submit.prevent="submitForm($el)">
+          x-data="destinationForm()" >
         @csrf
 
         <div class="space-y-5">
 
-            {{-- Photo upload --}}
-            <div class="card rounded-3xl p-6">
-                <h3 class="font-display text-base font-bold mb-4 flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-lg bg-sand-400/20 flex items-center justify-center text-sand-400 text-xs">📸</span>
-                    Foto Destinasi
-                </h3>
+            {{-- Foto upload --}}
+<div class="card rounded-3xl p-6">
+    <h3 class="font-display text-base font-bold mb-4 flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-sand-400/20 flex items-center justify-center text-sand-400 text-xs">📸</span>
+        Foto Destinasi
+    </h3>
 
-                <div
-                    x-on:dragover.prevent="dragging = true"
-                    x-on:dragleave.prevent="dragging = false"
-                    x-on:drop.prevent="handleDrop($event)"
-                    :class="dragging ? 'border-sand-400 bg-sand-400/8' : 'border-white/10 hover:border-sand-400/40'"
-                    class="relative border-2 border-dashed rounded-2xl transition-all duration-200 cursor-pointer overflow-hidden"
-                    @click="$refs.fileInput.click()"
-                >
-                    {{-- Preview --}}
-                    <div x-show="preview" class="relative h-56">
-                        <img :src="preview" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                            <span class="text-white font-body text-sm">Klik untuk ganti foto</span>
-                        </div>
-                    </div>
+    <div
+        x-on:dragover.prevent="dragging = true"
+        x-on:dragleave.prevent="dragging = false"
+        x-on:drop.prevent="handleDrop($event)"
+        :class="dragging ? 'border-sand-400 bg-sand-400/8' : 'border-white/10 hover:border-sand-400/40'"
+        class="relative border-2 border-dashed rounded-2xl transition-all duration-200 cursor-pointer overflow-hidden"
+    >
+        {{-- INPUT FILE --}}
+        <input type="file"
+               name="foto" 
+               x-ref="fileInput"
+               @change="handleFile($event)"
+               accept="image/*"
+               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
 
-                    {{-- Placeholder --}}
-                    <div x-show="!preview" class="p-12 text-center">
-                        <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-6 h-6 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <p class="text-white/50 font-body text-sm">Drag & drop atau <span class="text-sand-400">klik untuk upload</span></p>
-                        <p class="text-white/25 font-body text-xs mt-1">PNG, JPG, JPEG — max 2MB</p>
-                    </div>
-
-                    <input type="file" name="foto" x-ref="fileInput" @change="handleFile($event)"
-                           accept="image/*" class="hidden">
-                </div>
-                @error('foto') <p class="text-red-400 text-xs font-body mt-2">{{ $message }}</p> @enderror
+        {{-- Preview (Diperbaiki: Ganti <template> jadi <div> supaya x-show berfungsi) --}}
+        <div x-show="preview">
+            <div class="relative h-56">
+                <img :src="preview" class="w-full h-full object-cover">
             </div>
+        </div>
+
+        {{-- Placeholder (Diperbaiki: Ganti <template> jadi <div>) --}}
+        <div x-show="!preview">
+            <div class="p-12 text-center">
+                <p class="text-white/50">Drag & drop atau klik upload</p>
+            </div>
+        </div>
+    </div>
+
+    @error('foto') <p class="text-red-400 text-xs font-body mt-2">{{ $message }}</p> @enderror
+</div>
 
             {{-- Main info --}}
             <div class="card rounded-3xl p-6 space-y-5">
@@ -155,25 +155,28 @@ function destinationForm() {
         dragging: false,
         handleFile(event) {
             const file = event.target.files[0];
-            if (file) this.setPreview(file);
-        },
-        handleDrop(event) {
-            this.dragging = false;
-            const file = event.dataTransfer.files[0];
             if (file && file.type.startsWith('image/')) {
-                this.$refs.fileInput.files = event.dataTransfer.files;
-                this.setPreview(file);
+                this.preview = URL.createObjectURL(file);
             }
         },
-        setPreview(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => { this.preview = e.target.result; };
-            reader.readAsDataURL(file);
-        },
-        submitForm(form) {
-            form.submit();
+        handleDrop(event) {
+            event.preventDefault();
+            this.dragging = false;
+
+            const files = event.dataTransfer.files;
+            if (!files.length) return;
+
+            const file = files[0];
+            if (file.type.startsWith('image/')) {
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                this.$refs.fileInput.files = dataTransfer.files;
+
+                this.preview = URL.createObjectURL(file);
+            }
         }
     }
 }
 </script>
+
 @endpush

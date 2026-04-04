@@ -15,9 +15,9 @@ class Plan extends Model
         'date',
         'notes',
     ];
-    public function destination()
-    {
-        return $this->belongsTo(Destination::class, 'destinations_id', 'destinations_id');
-        // belongsTo(TargetModel, foreign_key, owner_key)
-    }
+   public function destination()
+{
+    return $this->belongsTo(Destination::class, 'destinations_id', 'destinations_id');
+}
+    
 }

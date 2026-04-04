@@ -44,7 +44,7 @@ class DestinationController extends Controller
             'departure_date' => $request->tanggal_berangkat,
             'duration' => $request->lama_hari,
             'budget' => $request->budget,
-            'is_completed' => $request->status === 'done' ? 1 : 0,
+            'is_completed' => $request->status,
             'image' => $path,
         ]);
 
@@ -64,58 +64,64 @@ class DestinationController extends Controller
     // EDIT (form edit)
     public function edit($id)
     {
-         $destinations = Destination::where('user_id', auth()->id())->get();
+         $destination = Destination::where('destinations_id', $id)
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
         return view('destinations.edit', compact('destinations'));
     }
 
     // UPDATE
-    public function update(Request $request, $id)
-    {
-         $destinations = Destination::where('user_id', auth()->id())->get();
+   public function update(Request $request, $id)
+{
+    $destination = Destination::where('destinations_id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
 
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal_berangkat' => 'required|date',
-            'lama_hari' => 'required|integer|min:1',
-            'budget' => 'required|numeric|min:0',
-            'status' => 'required', // 'done' / 'pending'
-            'foto' => 'nullable|image|max:2048',
-        ]);
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'tanggal_berangkat' => 'required|date',
+        'lama_hari' => 'required|integer|min:1',
+        'budget' => 'required|numeric|min:0',
+        'status' => 'required',
+        'foto' => 'nullable|image|max:2048',
+    ]);
 
-        // Jika ada foto baru, simpan dan ganti path lama
-        $imagePath = $destination->image;
-        if ($request->hasFile('foto')) {
-            // Hapus file lama kalau ada
-            if ($destination->image && Storage::disk('public')->exists($destination->image)) {
-                Storage::disk('public')->delete($destination->image);
-            }
-            $imagePath = $request->file('foto')->store('destinations', 'public');
-        }
+    $imagePath = $destination->image;
 
-        $destination->update([
-            'title' => $request->judul,
-            'departure_date' => $request->tanggal_berangkat,
-            'duration' => $request->lama_hari,
-            'budget' => $request->budget,
-            'is_completed' => $request->status === 'done' ? 1 : 0,
-            'image' => $imagePath,
-        ]);
-
-        return redirect()->route('dashboard')->with('success', 'Destinasi berhasil diupdate!');
-    }
-
-    // DELETE
-    public function destroy($id)
-    {
-         $destinations = Destination::where('user_id', auth()->id())->get();
-
-        // Hapus file image dari storage jika ada
+    if ($request->hasFile('foto')) {
         if ($destination->image && Storage::disk('public')->exists($destination->image)) {
             Storage::disk('public')->delete($destination->image);
         }
-
-        $destination->delete();
-
-        return redirect()->route('dashboard')->with('success', 'Destinasi berhasil dihapus!');
+        $imagePath = $request->file('foto')->store('destinations', 'public');
     }
+
+    $destination->update([
+        'title' => $request->judul,
+        'departure_date' => $request->tanggal_berangkat,
+        'duration' => $request->lama_hari,
+        'budget' => $request->budget,
+        'is_completed' => $request->status,
+        'image' => $imagePath,
+    ]);
+
+    return redirect()->route('dashboard')->with('success', 'Destinasi berhasil diupdate!');
+}
+
+    // DELETE
+    public function destroy($id)
+{
+    $destination = Destination::where('destinations_id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+    // Hapus file image dari storage jika ada
+    if ($destination->image && Storage::disk('public')->exists($destination->image)) {
+        Storage::disk('public')->delete($destination->image);
+    }
+
+    $destination->delete();
+
+    return redirect()->route('dashboard')->with('success', 'Destinasi berhasil dihapus!');
+}
+
 }

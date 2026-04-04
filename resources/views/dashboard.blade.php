@@ -23,8 +23,8 @@
         @php
             $stats = [
                 ['label' => 'Total Destinasi', 'value' => $destinations->count(), 'icon' => '🗺️', 'color' => 'sand'],
-                ['label' => 'Sudah Tercapai', 'value' => $destinations->where('is_completed', true)->count(), 'icon' => '✅', 'color' => 'green'],
-                ['label' => 'Belum Tercapai', 'value' => $destinations->where('is_completed', true)->count(), 'icon' => '⏳', 'color' => 'yellow'],
+                ['label' => 'Sudah Tercapai', 'value' => $destinations->where('is_completed', true)->count(), 'icon' => '✅', 'color' => 'green'], 
+                ['label' => 'Belum Tercapai', 'value' => $destinations->where('is_completed', false)->count(), 'icon' => '⏳', 'color' => 'yellow'],
                 ['label' => 'Total Rencana', 'value' => $totalPlans ?? 0, 'icon' => '📅', 'color' => 'blue'],
             ];
         @endphp
@@ -100,7 +100,7 @@
 
                     {{-- Status badge --}}
                     <div class="absolute top-3 right-3">
-                        @if($destination->status)
+                        @if($destination->is_completed)
                             <span class="px-2.5 py-1 rounded-full bg-green-500/25 border border-green-500/40 text-green-400 text-[11px] font-body backdrop-blur-sm">✓ Tercapai</span>
                         @else
                             <span class="px-2.5 py-1 rounded-full bg-black/30 border border-white/15 text-white/60 text-[11px] font-body backdrop-blur-sm">○ Belum</span>

@@ -19,6 +19,10 @@ class Destination extends Model
         'duration',
         'is_completed'
     ];
+    public function plans()
+{
+    return $this->hasMany(Plan::class, 'destinations_id', 'destinations_id');
+}
 
 }
 

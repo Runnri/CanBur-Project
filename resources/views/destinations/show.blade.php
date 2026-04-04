@@ -50,7 +50,7 @@
                             {{ \Carbon\Carbon::parse($destination->departure_date)->format('d F Y') }}
                         </p>
                     </div>
-                    @if($destination->status)
+                    @if($destination->is_completed)
                         <span class="px-3 py-1.5 rounded-full bg-green-500/25 border border-green-500/40 text-green-400 text-sm font-body">✓ Tercapai</span>
                     @else
                         <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/60 text-sm font-body">○ Belum Tercapai</span>

@@ -11,9 +11,7 @@ class DestinationController extends Controller
     // READ (dashboard)
     public function index()
     {
-        $destination = Destination::where('destinations_id', $id)
-                              ->where('user_id', auth()->id())
-                              ->firstOrFail();
+        $destinations = Destination::where('user_id', auth()->id())->get();
         return view('dashboard', compact('destinations'));
     }
 
@@ -55,28 +53,25 @@ class DestinationController extends Controller
 
     // SHOW (detail destinasi)
     public function show($id)
-    {
-        $destination = Destination::where('destinations_id', $id)
-                              ->where('user_id', auth()->id())
-                              ->firstOrFail();
-        return view('destinations.show', compact('destination'));
-    }
+{
+    $destination = Destination::where('destinations_id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+    return view('destinations.show', compact('destination'));
+}
 
     // EDIT (form edit)
     public function edit($id)
     {
-        $destination = Destination::where('destinations_id', $id)
-                              ->where('user_id', auth()->id())
-                              ->firstOrFail();
-        return view('destinations.edit', compact('destination'));
+         $destinations = Destination::where('user_id', auth()->id())->get();
+        return view('destinations.edit', compact('destinations'));
     }
 
     // UPDATE
     public function update(Request $request, $id)
     {
-        $destination = Destination::where('destinations_id', $id)
-                              ->where('user_id', auth()->id())
-                              ->firstOrFail();
+         $destinations = Destination::where('user_id', auth()->id())->get();
 
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -112,9 +107,7 @@ class DestinationController extends Controller
     // DELETE
     public function destroy($id)
     {
-        $destination = Destination::where('destinations_id', $id)
-                              ->where('user_id', auth()->id())
-                              ->firstOrFail();
+         $destinations = Destination::where('user_id', auth()->id())->get();
 
         // Hapus file image dari storage jika ada
         if ($destination->image && Storage::disk('public')->exists($destination->image)) {

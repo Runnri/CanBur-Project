@@ -12,7 +12,7 @@ return new class extends Migration
    public function up(): void
 {
     Schema::create('destinations', function (Blueprint $table) {
-        $table->id();
+        $table->bigIncrements('destinations_id'); 
         $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Menghubungkan destinasi ke user yang login [cite: 14]
         $table->string('title'); // Judul liburan [cite: 6]
         $table->string('image')->nullable(); // Foto destinasi [cite: 6]

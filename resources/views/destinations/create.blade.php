@@ -81,7 +81,7 @@
                 {{-- Tanggal & Lama --}}
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                        <label class="text-xs font-body text-white/50 uppercase tracking-wider">Tanggal Berangkat *</label>
+                        <label class="text-xs font-body text-white/50 uppercase tracking-wider">Tanggal Keberangkatan *</label>
                         <input type="date" name="tanggal_berangkat" value="{{ old('tanggal_berangkat') }}"
                                class="input-field w-full px-4 py-3 rounded-xl font-body text-sm @error('tanggal_berangkat') border-red-500/50 @enderror"
                                style="color-scheme: dark;">

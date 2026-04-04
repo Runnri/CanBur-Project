@@ -54,20 +54,20 @@
         <div class="dest-card rounded-3xl overflow-hidden group">
             {{-- Image --}}
             <div class="relative h-48 overflow-hidden">
-                @if($destination->foto)
-                    <img src="{{ asset('storage/' . $destination->foto) }}"
+                @if($destination->image)
+                    <img src="{{ asset('storage/' . $destination->image) }}"
                          alt="{{ $destination->judul }}"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 @else
                     <div class="w-full h-full bg-gradient-to-br from-forest-700 via-forest-800 to-forest-900 flex items-center justify-center">
-                        <span class="text-5xl opacity-70">🏝️</span>
+             
                     </div>
                 @endif
                 <div class="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-transparent to-transparent"></div>
 
                 {{-- Status --}}
                 <div class="absolute top-3 left-3">
-                    @if($destination->status)
+                    @if($destination->is_completed)
                         <span class="px-2.5 py-1 rounded-full bg-green-500/25 border border-green-500/40 text-green-400 text-[11px] font-body backdrop-blur-sm">✓ Tercapai</span>
                     @else
                         <span class="px-2.5 py-1 rounded-full bg-black/30 border border-white/15 text-white/60 text-[11px] font-body backdrop-blur-sm">○ Belum</span>
@@ -107,7 +107,7 @@
                 {{-- Days pill on image --}}
                 <div class="absolute bottom-3 left-3">
                     <span class="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white/70 text-[11px] font-body">
-                        {{ $destination->lama_hari }} Hari
+                        {{ $destination->duration }} Hari
                     </span>
                 </div>
             </div>
@@ -115,12 +115,12 @@
             {{-- Card body --}}
             <div class="p-5 space-y-3">
                 <div>
-                    <h3 class="font-display text-lg font-bold leading-tight">{{ $destination->judul }}</h3>
+                    <h3 class="font-display text-lg font-bold leading-tight">{{ $destination->title }}</h3>
                     <div class="flex items-center gap-1 mt-1">
                         <svg class="w-3 h-3 text-white/30" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                         </svg>
-                        <p class="text-white/30 text-xs font-body">{{ \Carbon\Carbon::parse($destination->tanggal_berangkat)->format('d M Y') }}</p>
+                        <p class="text-white/30 text-xs font-body">{{ \Carbon\Carbon::parse($destination->departure_date)->format('d M Y') }}</p>
                     </div>
                 </div>
 

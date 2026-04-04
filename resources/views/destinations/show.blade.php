@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $destination->judul)
-@section('page-title', $destination->judul)
+@section('title', $destination->title)
+@section('page-title', $destination->title)
 @section('page-subtitle', 'Detail & Rencana Perjalanan')
 
 @section('header-actions')
@@ -29,9 +29,9 @@
     {{-- Destination hero card --}}
     <div class="card rounded-3xl overflow-hidden">
         <div class="relative h-56 md:h-72">
-            @if($destination->foto)
-                <img src="{{ asset('storage/' . $destination->foto) }}"
-                     alt="{{ $destination->judul }}"
+            @if($destination->image)
+                <img src="{{ asset('storage/' . $destination->image) }}"
+                     alt="{{ $destination->title }}"
                      class="w-full h-full object-cover">
             @else
                 <div class="w-full h-full bg-gradient-to-br from-forest-700 via-forest-800 to-forest-900 flex items-center justify-center">
@@ -44,9 +44,9 @@
             <div class="absolute bottom-0 left-0 right-0 p-6">
                 <div class="flex items-end justify-between">
                     <div>
-                        <h2 class="font-display text-3xl font-black">{{ $destination->judul }}</h2>
+                        <h2 class="font-display text-3xl font-black">{{ $destination->title }}</h2>
                         <p class="text-white/50 font-body text-sm mt-1">
-                            {{ \Carbon\Carbon::parse($destination->tanggal_berangkat)->format('d F Y') }}
+                            {{ \Carbon\Carbon::parse($destination->departure_date)->format('d F Y') }}
                         </p>
                     </div>
                     @if($destination->status)
@@ -62,7 +62,7 @@
         <div class="grid grid-cols-3 divide-x divide-white/5 border-t border-white/5">
             <div class="p-4 text-center">
                 <p class="text-[10px] text-white/30 font-body uppercase tracking-widest mb-1">Durasi</p>
-                <p class="font-display text-xl font-bold">{{ $destination->lama_hari }} <span class="text-sm font-body text-white/50">Hari</span></p>
+                <p class="font-display text-xl font-bold">{{ $destination->duration }} <span class="text-sm font-body text-white/50">Hari</span></p>
             </div>
             <div class="p-4 text-center">
                 <p class="text-[10px] text-white/30 font-body uppercase tracking-widest mb-1">Budget</p>
@@ -117,7 +117,7 @@
                         <div>
                             <h4 class="font-display font-bold">Hari ke-{{ $hari }}</h4>
                             <p class="text-white/30 text-xs font-body">
-                                {{ \Carbon\Carbon::parse($destination->tanggal_berangkat)->addDays($hari - 1)->format('l, d M Y') }}
+                                {{ \Carbon\Carbon::parse($destination->departure_date)->addDays($hari - 1)->format('l, d M Y') }}
                             </p>
                         </div>
                     </div>
@@ -218,10 +218,10 @@
                         {{-- Hari --}}
                         <div class="space-y-1.5">
                             <label class="text-xs font-body text-white/50 uppercase tracking-wider">Hari ke- *</label>
-                            <input type="number" x-model="form.hari" min="1" max="{{ $destination->lama_hari }}"
+                            <input type="number" x-model="form.hari" min="1" max="{{ $destination->duration }}"
                                    placeholder="1"
                                    class="input-field w-full px-4 py-3 rounded-xl font-body text-sm">
-                            <p class="text-white/25 text-xs font-body">Maks. {{ $destination->lama_hari }} hari</p>
+                            <p class="text-white/25 text-xs font-body">Maks. {{ $destination->duration }} hari</p>
                         </div>
 
                         {{-- Jam --}}

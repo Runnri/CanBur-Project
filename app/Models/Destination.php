@@ -6,11 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends Model
 {
-    protected $fillable = [
-    'nama',
-    'lokasi',
-    'tanggal',
-    'durasi',
+    public function plans()
+{
+    return $this->hasMany(Plan::class);
+}
+   protected $fillable = [
+    'user_id',
+    'title',
+    'image',
+    'departure_date',
     'budget',
+    'duration',
+    'is_completed'
 ];
 }
+

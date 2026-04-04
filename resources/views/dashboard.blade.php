@@ -23,8 +23,8 @@
         @php
             $stats = [
                 ['label' => 'Total Destinasi', 'value' => $destinations->count(), 'icon' => '🗺️', 'color' => 'sand'],
-                ['label' => 'Sudah Tercapai', 'value' => $destinations->where('status', true)->count(), 'icon' => '✅', 'color' => 'green'],
-                ['label' => 'Belum Tercapai', 'value' => $destinations->where('status', false)->count(), 'icon' => '⏳', 'color' => 'yellow'],
+                ['label' => 'Sudah Tercapai', 'value' => $destinations->where('is_completed', true)->count(), 'icon' => '✅', 'color' => 'green'],
+                ['label' => 'Belum Tercapai', 'value' => $destinations->where('is_completed', true)->count(), 'icon' => '⏳', 'color' => 'yellow'],
                 ['label' => 'Total Rencana', 'value' => $totalPlans ?? 0, 'icon' => '📅', 'color' => 'blue'],
             ];
         @endphp
@@ -87,9 +87,9 @@
             <div class="dest-card rounded-3xl overflow-hidden group">
                 {{-- Image --}}
                 <div class="relative h-44 overflow-hidden">
-                    @if($destination->foto)
-                        <img src="{{ asset('storage/' . $destination->foto) }}"
-                             alt="{{ $destination->judul }}"
+                    @if($destination->image)
+                        <img src="{{ asset('storage/' . $destination->image) }}"
+                             alt="{{ $destination->title }}"
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     @else
                         <div class="w-full h-full bg-gradient-to-br from-forest-700 to-forest-800 flex items-center justify-center">
@@ -130,16 +130,16 @@
                 {{-- Info --}}
                 <div class="p-4 space-y-3">
                     <div>
-                        <h3 class="font-display text-base font-bold leading-tight">{{ $destination->judul }}</h3>
+                        <h3 class="font-display text-base font-bold leading-tight">{{ $destination->title }}</h3>
                     </div>
                     <div class="grid grid-cols-3 gap-2">
                         <div class="text-center p-2 rounded-xl" style="background:rgba(255,255,255,0.04)">
                             <p class="text-[9px] text-white/30 font-body uppercase tracking-wide">Tanggal</p>
-                            <p class="text-xs font-body font-medium mt-0.5 text-white/80">{{ \Carbon\Carbon::parse($destination->tanggal_berangkat)->format('d M') }}</p>
+                            <p class="text-xs font-body font-medium mt-0.5 text-white/80">{{ \Carbon\Carbon::parse($destination->departure_date)->format('d M') }}</p>
                         </div>
                         <div class="text-center p-2 rounded-xl" style="background:rgba(255,255,255,0.04)">
                             <p class="text-[9px] text-white/30 font-body uppercase tracking-wide">Durasi</p>
-                            <p class="text-xs font-body font-medium mt-0.5 text-white/80">{{ $destination->lama_hari }}h</p>
+                            <p class="text-xs font-body font-medium mt-0.5 text-white/80">{{ $destination->duration }}h</p>
                         </div>
                         <div class="text-center p-2 rounded-xl" style="background:rgba(212,158,82,0.1)">
                             <p class="text-[9px] text-sand-400/60 font-body uppercase tracking-wide">Budget</p>

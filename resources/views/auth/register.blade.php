@@ -83,7 +83,7 @@
                 <span class="w-12 h-12 rounded-2xl bg-sand-400 flex items-center justify-center text-forest-900 font-display font-black text-xl group-hover:rotate-6 transition-transform duration-300 shadow-lg shadow-sand-400/20">C</span>
                 <span class="font-display font-bold text-2xl">CanBur</span>
             </a>
-            <h1 class="font-display text-3xl font-white mt-6 mb-1">Mulai Petualangan</h1>
+           
         </div>
 
         {{-- Card --}}
@@ -96,7 +96,7 @@
                 <div class="space-y-1.5 mb-4">
                     <label class="text-xs font-body text-white/50 uppercase tracking-wider">Username</label>
                     <input type="text" name="name" value="{{ old('name') }}" required autofocus
-                           placeholder="Nama kamu"
+                           placeholder="Username kamu"
                            class="input-field w-full px-4 py-3 rounded-xl font-body text-sm @error('name') border-red-500/50 @enderror">
                     @error('name')
                     <p class="text-red-400 text-xs font-body mt-1 flex items-center gap-1">

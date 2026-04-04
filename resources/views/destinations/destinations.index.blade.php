@@ -4,6 +4,7 @@
 @section('page-title', 'Destinasi Liburan')
 @section('page-subtitle', 'Kelola semua tujuan perjalananmu')
 
+
 @section('header-actions')
     <a href="{{ route('destinations.create') }}"
        class="flex items-center gap-2 px-4 py-2 rounded-full bg-sand-400 text-forest-900 font-body font-medium text-sm hover:bg-sand-300 transition-all duration-300 hover:shadow-lg hover:shadow-sand-400/20">

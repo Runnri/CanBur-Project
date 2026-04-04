@@ -11,7 +11,9 @@ class DestinationController extends Controller
     // READ (dashboard)
     public function index()
     {
-        $destinations = Destination::all();
+        $destination = Destination::where('destinations_id', $id)
+                              ->where('user_id', auth()->id())
+                              ->firstOrFail();
         return view('dashboard', compact('destinations'));
     }
 
@@ -54,21 +56,27 @@ class DestinationController extends Controller
     // SHOW (detail destinasi)
     public function show($id)
     {
-        $destination = Destination::findOrFail($id);
+        $destination = Destination::where('destinations_id', $id)
+                              ->where('user_id', auth()->id())
+                              ->firstOrFail();
         return view('destinations.show', compact('destination'));
     }
 
     // EDIT (form edit)
     public function edit($id)
     {
-        $destination = Destination::findOrFail($id);
+        $destination = Destination::where('destinations_id', $id)
+                              ->where('user_id', auth()->id())
+                              ->firstOrFail();
         return view('destinations.edit', compact('destination'));
     }
 
     // UPDATE
     public function update(Request $request, $id)
     {
-        $destination = Destination::findOrFail($id);
+        $destination = Destination::where('destinations_id', $id)
+                              ->where('user_id', auth()->id())
+                              ->firstOrFail();
 
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -104,7 +112,9 @@ class DestinationController extends Controller
     // DELETE
     public function destroy($id)
     {
-        $destination = Destination::findOrFail($id);
+        $destination = Destination::where('destinations_id', $id)
+                              ->where('user_id', auth()->id())
+                              ->firstOrFail();
 
         // Hapus file image dari storage jika ada
         if ($destination->image && Storage::disk('public')->exists($destination->image)) {

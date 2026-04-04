@@ -6,18 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends Model
 {
-    public function plans()
-{
-    return $this->hasMany(Plan::class);
-}
-   protected $fillable = [
-    'user_id',
-    'title',
-    'image',
-    'departure_date',
-    'budget',
-    'duration',
-    'is_completed'
-];
+    protected $primaryKey = 'destinations_id'; 
+
+    public $incrementing = true;
+
+    protected $fillable = [
+        'user_id',
+        'title',
+        'image',
+        'departure_date',
+        'budget',
+        'duration',
+        'is_completed'
+    ];
+
 }
 

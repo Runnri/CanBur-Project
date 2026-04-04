@@ -4,6 +4,7 @@
 @section('page-title', 'Edit Destinasi')
 @section('page-subtitle', 'Perbarui informasi destinasi liburanmu')
 
+
 @section('header-actions')
     <a href="{{ route('destinations.show', $destination) }}"
        class="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-white/60 font-body text-sm hover:border-white/20 hover:text-white transition-all">

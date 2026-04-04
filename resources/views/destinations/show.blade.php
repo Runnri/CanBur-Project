@@ -4,6 +4,7 @@
 @section('page-title', $destination->title)
 @section('page-subtitle', 'Detail & Rencana Perjalanan')
 
+
 @section('header-actions')
     <div class="flex items-center gap-2">
         <a href="{{ route('destinations.edit', $destination) }}"

@@ -11,13 +11,17 @@ class Plan extends Model
 
     protected $fillable = [
         'destination_id',
-        'title',
-        'date',
-        'notes',
+        'hari',
+        'jam',
+        'kegiatan',
+        'lokasi',
     ];
-   public function destination()
-{
-    return $this->belongsTo(Destination::class, 'destinations_id', 'destinations_id');
-}
-    
+
+    /**
+     * Relasi: Plan dimiliki oleh satu Destination
+     */
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 }

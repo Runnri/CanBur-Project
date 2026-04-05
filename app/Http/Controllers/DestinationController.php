@@ -67,7 +67,7 @@ class DestinationController extends Controller
          $destination = Destination::where('destinations_id', $id)
                 ->where('user_id', auth()->id())
                 ->firstOrFail();
-        return view('destinations.edit', compact('destinations'));
+        return view('destinations.edit', compact('destination'));
     }
 
     // UPDATE

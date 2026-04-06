@@ -17,7 +17,7 @@
 @section('content')
 <div class="max-w-2xl mx-auto animate-fade-in">
     {{-- 1 & 2. UBAH ACTION KE UPDATE DAN TAMBAHKAN @method('PUT') --}}
-    <form action="{{ route('destinations.update', $destination->destinations_id) }}" method="POST" enctype="multipart/form-data" autocomplete="off>"
+    <form action="{{ route('destinations.update', $destination->destinations_id) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
         @csrf
         @method('PUT')
         

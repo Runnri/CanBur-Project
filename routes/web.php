@@ -32,9 +32,24 @@ Route::middleware(['auth'])->group(function () {
 // CRUD Plans (hanya untuk user login, terbatas store, update, destroy)
 // ================================
 Route::middleware(['auth'])->group(function () {
-    Route::resource('plans', PlanController::class)
-        ->only(['store', 'update', 'destroy']);
+
+    Route::get('/dashboard', [DestinationController::class, 'index'])->name('dashboard');
+
+    // Destinasi — full CRUD
+    Route::resource('destinations', DestinationController::class);
+
+    // Plans — nested di bawah destinations (tidak ada index/show, semua ada di destinations.show)
+    // URL yang dihasilkan:
+    //   GET  /destinations/{destination}/plans/create        → plans.create
+    //   POST /destinations/{destination}/plans               → plans.store
+    //   GET  /destinations/{destination}/plans/{plan}/edit   → plans.edit
+    //   PUT  /destinations/{destination}/plans/{plan}        → plans.update
+    //   DELETE /destinations/{destination}/plans/{plan}      → plans.destroy
+    Route::resource('destinations.plans', PlanController::class)
+         ->only(['create', 'store', 'edit', 'update', 'destroy']);
+
 });
+
 
 // ================================
 // Profile (hanya untuk user login)

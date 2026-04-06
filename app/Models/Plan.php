@@ -10,7 +10,7 @@ class Plan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'destination_id',
+        'destinations_id',
         'hari',
         'jam',
         'kegiatan',

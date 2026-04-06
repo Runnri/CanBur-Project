@@ -10,12 +10,16 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('destination_id')
-                  ->constrained('destinations')
-                  ->onDelete('cascade'); // otomatis hapus plan kalau destinasi dihapus
-            $table->string('title');       // nama plan/hari
-            $table->date('date')->nullable(); // tanggal plan, optional
-            $table->text('notes')->nullable(); // catatan tambahan
+            $table->foreignId('destinations_id')
+                  ->constrained(
+                    table: 'destinations', 
+                    column: 'destinations_id' 
+      )
+                  ->onDelete('cascade');
+            $table->integer('hari');              // Hari ke-berapa (1, 2, 3 ...)
+            $table->time('jam');                  // Jam kegiatan   (07:00, 12:00 ...)
+            $table->text('kegiatan');             // Deskripsi kegiatan
+            $table->string('lokasi')->nullable(); // Lokasi (opsional)
             $table->timestamps();
         });
     }

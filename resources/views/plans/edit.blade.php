@@ -34,7 +34,7 @@
     </div>
 
     {{-- Form --}}
-    <form method="POST" action="{{ route('destinations.plans.update', [$destination, $plan]) }}" autocomplete="off>
+    <form method="POST" action="{{ route('destinations.plans.update', [$destination, $plan]) }}" autocomplete="off>"
         @csrf
         @method('PUT')
 

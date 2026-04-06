@@ -34,7 +34,7 @@
     </div>
 
     {{-- Form --}}
-    <form method="POST" action="{{ route('destinations.plans.store', $destination) }}" autocomplete="off>
+    <form method="POST" action="{{ route('destinations.plans.store', $destination) }}" autocomplete="off>"
         @csrf
 
         <div class="space-y-5">

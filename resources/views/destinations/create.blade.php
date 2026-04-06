@@ -20,46 +20,44 @@
           x-data="destinationForm()" >
         @csrf
 
+        
         <div class="space-y-5">
 
-            {{-- Foto upload --}}
-<div class="card rounded-3xl p-6">
+            <div class="card rounded-3xl p-6 bg-forest-800/50">
     <h3 class="font-display text-base font-bold mb-4 flex items-center gap-2">
-        <span class="w-6 h-6 rounded-lg bg-sand-400/20 flex items-center justify-center text-sand-400 text-xs">📸</span>
+        <span class="w-6 h-6 rounded-lg bg-sand-400/20 text-sand-400 flex items-center justify-center text-xs">01</span>
         Foto Destinasi
     </h3>
-
-    <div
-        x-on:dragover.prevent="dragging = true"
-        x-on:dragleave.prevent="dragging = false"
-        x-on:drop.prevent="handleDrop($event)"
-        :class="dragging ? 'border-sand-400 bg-sand-400/8' : 'border-white/10 hover:border-sand-400/40'"
-        class="relative border-2 border-dashed rounded-2xl transition-all duration-200 cursor-pointer overflow-hidden"
-    >
-        {{-- INPUT FILE --}}
-        <input type="file"
-               name="foto" 
-               x-ref="fileInput"
-               @change="handleFile($event)"
-               accept="image/*"
-               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-
-        {{-- Preview (Diperbaiki: Ganti <template> jadi <div> supaya x-show berfungsi) --}}
-        <div x-show="preview">
-            <div class="relative h-56">
-                <img :src="preview" class="w-full h-full object-cover">
+    
+    {{-- Alpine.js murni HANYA untuk nangkep URL gambar, ga ganggu file --}}
+    <div x-data="{ imageUrl: null }" class="relative mt-2">
+        
+        <div class="border-2 border-dashed border-white/20 bg-forest-900/30 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden transition-all duration-300 h-64 hover:border-sand-400/50">
+            
+            {{-- 1. Tampilan KOSONG --}}
+            <div x-show="!imageUrl" class="text-center z-10 pointer-events-none p-6">
+                <svg class="w-12 h-12 text-white/20 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                </svg>
+                <p class="text-sm font-bold text-white/70 mb-1">Klik untuk pilih foto</p>
             </div>
+
+            {{-- 2. Tampilan PREVIEW --}}
+            <img x-show="imageUrl" :src="imageUrl" class="absolute inset-0 w-full h-full object-cover z-10" x-cloak>
+            
+            {{-- 3. INPUT ASLI (Menutupi seluruh kotak, transparan) --}}
+            <input type="file" 
+                   name="foto" 
+                   accept="image/*"
+                   @change="imageUrl = URL.createObjectURL($event.target.files[0])"
+                   class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
+                   required> {{-- Tambahkan required buat ngetes form ga bisa disubmit kalau kosong --}}
         </div>
 
-        {{-- Placeholder (Diperbaiki: Ganti <template> jadi <div>) --}}
-        <div x-show="!preview">
-            <div class="p-12 text-center">
-                <p class="text-white/50">Drag & drop atau klik upload</p>
-            </div>
-        </div>
+        @error('foto')
+            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+        @enderror
     </div>
-
-    @error('foto') <p class="text-red-400 text-xs font-body mt-2">{{ $message }}</p> @enderror
 </div>
 
             {{-- Main info --}}

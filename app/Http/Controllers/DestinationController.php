@@ -8,12 +8,33 @@ use Illuminate\Support\Facades\Storage;
 
 class DestinationController extends Controller
 {
-    // READ (dashboard)
-    public function index()
+    
+    // UNTUK HALAMAN DASHBOARD (Beranda)
+    public function dashboard()
     {
-        $destinations = Destination::where('user_id', auth()->id())->get();
-        return view('dashboard', compact('destinations'));
+        // Ambil semua data (tanpa paginasi) untuk dihitung di statistik (Stats row)
+        $destinations = Destination::where('user_id', auth()->id())->latest()->get();
+        // Pastikan variabel totalPlans dikirim jika digunakan di Blade
+        $totalPlans = 0; 
+        
+        return view('dashboard', compact('destinations', 'totalPlans'));
     }
+
+    public function index(Request $request)
+{
+    $query = Destination::where('user_id', auth()->id());
+
+    // Fitur Filter berdasarkan Status (Tercapai / Belum)
+    if ($request->filled('filter') && $request->filter !== 'all') {
+        $isCompleted = $request->filter === 'tercapai' ? 1 : 0;
+        $query->where('is_completed', $isCompleted);
+    }
+
+    // Eksekusi query dengan paginasi
+    $destinations = $query->latest()->paginate(6)->withQueryString();
+
+    return view('destinations.index', compact('destinations'));
+}
 
     // CREATE (form tambah)
     public function create()

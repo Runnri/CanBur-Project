@@ -19,24 +19,26 @@
 <div class="space-y-6 animate-fade-in">
 
     {{-- Filter & Search --}}
-    <div class="card rounded-2xl p-4 flex flex-col sm:flex-row gap-3" x-data="{ filter: 'all' }">
-        <div class="flex-1 relative">
-            <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-            <input type="text" placeholder="Cari destinasi..."
-                   class="input-field w-full pl-10 pr-4 py-2.5 rounded-xl font-body text-sm">
-        </div>
-        <div class="flex gap-2">
-            @foreach([['all','Semua'],['done','Tercapai'],['pending','Belum']] as [$val,$label])
-            <button @click="filter = '{{ $val }}'"
-                    :class="filter === '{{ $val }}' ? 'bg-sand-400 text-forest-900' : 'bg-white/5 text-white/50 hover:bg-white/10'"
-                    class="px-4 py-2 rounded-xl font-body text-sm transition-all duration-200">
+    {{-- Filter Status (100% HTML & Blade Murni, Anti-Gagal) --}}
+    <form method="GET" action="{{ route('destinations.index') }}" class="card rounded-2xl p-4 flex flex-wrap gap-2">
+        
+        {{-- Looping Tombol Filter --}}
+        @foreach([['all','Semua'],['tercapai','Tercapai'],['belum','Belum']] as [$val, $label])
+            @php
+                // Cek apakah tombol ini adalah filter yang sedang aktif di URL
+                $isActive = request('filter', 'all') === $val;
+            @endphp
+            
+            {{-- Kita jadikan tombol ini sebagai tombol Submit seutuhnya --}}
+            <button type="submit" 
+                    name="filter" 
+                    value="{{ $val }}"
+                    class="px-4 py-2 rounded-xl font-body text-sm transition-all duration-200 {{ $isActive ? 'bg-sand-400 text-forest-900 shadow-md shadow-sand-400/20' : 'bg-white/5 text-white/50 hover:bg-white/10' }}">
                 {{ $label }}
             </button>
-            @endforeach
-        </div>
-    </div>
+        @endforeach
+        
+    </form>
 
     {{-- Destinations grid --}}
     @if($destinations->isEmpty())

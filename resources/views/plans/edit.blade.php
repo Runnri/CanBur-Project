@@ -34,7 +34,7 @@
     </div>
 
     {{-- Form --}}
-    <form method="POST" action="{{ route('destinations.plans.update', [$destination, $plan]) }}">
+    <form method="POST" action="{{ route('destinations.plans.update', [$destination, $plan]) }}" autocomplete="off>
         @csrf
         @method('PUT')
 
@@ -133,7 +133,26 @@
 
             </div>
 
-            {{-- Danger zone - hapus --}}
+            
+            {{-- Submit --}}
+            <div class="flex items-center justify-between pt-1">
+                <a href="{{ route('destinations.show', $destination) }}"
+                   class="text-white/40 font-body text-sm hover:text-white transition-colors">
+                    Batal
+                </a>
+                <button type="submit"
+                        class="flex items-center gap-2 px-8 py-3 rounded-full bg-sand-400 text-forest-900 font-body font-medium hover:bg-sand-300 transition-all duration-300 hover:shadow-xl hover:shadow-sand-400/20 hover:-translate-y-0.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Simpan Perubahan
+                </button>
+            </div>
+
+        </div>
+        <br>
+    </form>
+    {{-- Danger zone - hapus --}}
             <div class="card rounded-2xl px-5 py-4 flex items-center justify-between border border-red-500/10">
                 <div>
                     <p class="text-white/50 font-body text-sm">Hapus kegiatan ini</p>
@@ -151,22 +170,5 @@
                 </form>
             </div>
 
-            {{-- Submit --}}
-            <div class="flex items-center justify-between pt-1">
-                <a href="{{ route('destinations.show', $destination) }}"
-                   class="text-white/40 font-body text-sm hover:text-white transition-colors">
-                    Batal
-                </a>
-                <button type="submit"
-                        class="flex items-center gap-2 px-8 py-3 rounded-full bg-sand-400 text-forest-900 font-body font-medium hover:bg-sand-300 transition-all duration-300 hover:shadow-xl hover:shadow-sand-400/20 hover:-translate-y-0.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    Simpan Perubahan
-                </button>
-            </div>
-
-        </div>
-    </form>
 </div>
 @endsection

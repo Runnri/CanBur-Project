@@ -95,12 +95,12 @@
         class="fixed top-0 left-0 h-full w-64 z-40 bg-forest-800 border-r border-white/5 flex flex-col transition-transform duration-300"
     >
         {{-- Logo --}}
-        <div class="p-6 border-b border-white/5">
-            <a href="{{ route('welcome') }}" class="flex items-center gap-2.5 group">
-                <span class="w-8 h-8 rounded-lg bg-sand-400 flex items-center justify-center text-forest-900 font-display font-bold text-sm group-hover:rotate-12 transition-transform duration-300">C</span>
-                <span class="font-display font-bold text-lg">CanBur</span>
+            <a href="{{ route('dashboard') }}" class="flex items-center">
+        <img 
+        src="{{ asset('images/LogoCanbur.png') }}" 
+        alt="CanBur Logo"
+        class="h-14 w-auto object-contain">
             </a>
-        </div>
 
         {{-- User info --}}
         <div class="px-4 py-4 border-b border-white/5">
@@ -136,13 +136,6 @@
                 Destinasi Liburan
             </a>
 
-            <a href="{{ route('destinations.index') }}"
-               class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl border-l-2 border-transparent text-white/60 font-body text-sm {{ request()->routeIs('plans.*') ? 'active' : '' }}">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-                Rencana Perjalanan
-            </a>
 
             <a href="{{ route('profile.edit') }}"
                class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl border-l-2 border-transparent text-white/60 font-body text-sm {{ request()->routeIs('profile.*') ? 'active' : '' }}">

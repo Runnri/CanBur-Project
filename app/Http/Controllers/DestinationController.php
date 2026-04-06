@@ -11,14 +11,18 @@ class DestinationController extends Controller
     
     // UNTUK HALAMAN DASHBOARD (Beranda)
     public function dashboard()
-    {
-        // Ambil semua data (tanpa paginasi) untuk dihitung di statistik (Stats row)
-        $destinations = Destination::where('user_id', auth()->id())->latest()->get();
-        // Pastikan variabel totalPlans dikirim jika digunakan di Blade
-        $totalPlans = 0; 
-        
-        return view('dashboard', compact('destinations', 'totalPlans'));
-    }
+{
+    $destinations = Destination::where('user_id', auth()->id())
+        ->with('plans') 
+        ->latest()
+        ->get();
+
+    $totalPlans = $destinations->sum(function ($destination) {
+        return $destination->plans->count();
+    });
+    
+    return view('dashboard', compact('destinations', 'totalPlans'));
+}
 
     public function index(Request $request)
 {

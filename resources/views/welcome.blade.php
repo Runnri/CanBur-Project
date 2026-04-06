@@ -304,7 +304,7 @@
                     class="flex items-center gap-4 pt-2"
                 >
                     <div class="flex -space-x-2">
-                        @foreach(['🧳','🏝️','⛺','🗺️'] as $emoji)
+                        @foreach(['👱','B','T','R'] as $emoji)
                         <span class="w-8 h-8 rounded-full bg-forest-700 border-2 border-forest-900 flex items-center justify-center text-xs">{{ $emoji }}</span>
                         @endforeach
                     </div>
@@ -326,7 +326,10 @@
                     <div class="relative rounded-2xl overflow-hidden h-56 bg-gradient-to-br from-forest-700 to-forest-800">
                         <div class="absolute inset-0 bg-gradient-to-br from-sand-400/20 via-transparent to-forest-900/60"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-7xl">🏔️</span>
+                           <img 
+                src="{{ asset('images/keren.jpg') }}" 
+                alt="image"
+               class="absolute inset-0 h-full w-full object-cover">
                         </div>
                         {{-- Status badge --}}
                         <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-body">
@@ -516,11 +519,6 @@
 
     {{--  FOOTER        --}}
     
-    <!-- <img 
-        src="{{ asset('images/LogoCanbur.png') }}" 
-        alt="CanBur Logo"
-        class="h-14 w-auto object-contain"
-    > -->
     <footer class="border-t border-white/5 py-10 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">

@@ -17,7 +17,7 @@
 @section('content')
 <div class="max-w-2xl mx-auto animate-fade-in">
     <form action="{{ route('destinations.store') }}" method="POST" enctype="multipart/form-data"
-          x-data="destinationForm()" >
+          x-data="destinationForm()" autocomplete="off">
         @csrf
 
         

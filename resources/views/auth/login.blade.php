@@ -82,8 +82,10 @@
         {{-- Logo --}}
         <div class="text-center mb-8">
             <a href="{{ route('welcome') }}" class="inline-flex flex-col items-center gap-3 group">
-                <span class="w-12 h-12 rounded-2xl bg-sand-400 flex items-center justify-center text-forest-900 font-display font-black text-xl group-hover:rotate-6 transition-transform duration-300 shadow-lg shadow-sand-400/20">C</span>
-                <span class="font-display font-bold text-2xl">CanBur</span>
+                <img 
+        src="{{ asset('images/LogoCanbur.png') }}" 
+        alt="CanBur Logo"
+        class="h-16 w-auto object-contain">
             </a>
         </div>
 
